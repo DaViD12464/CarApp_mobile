@@ -1,10 +1,41 @@
+
 package com.example.carcommander
+import com.example.carcommander.MainActivity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import okhttp3.OkHttpClient
+import okhttp3.RequestBody
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.http.POST
+import retrofit2.http.Body
+import retrofit2.Call
+import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.ResponseBody
+import retrofit2.Callback
+import retrofit2.Response
+
+interface ApiService {
+    @POST("/adduser")
+    fun postRequest(@Body body: Map<String, String>): Call<ResponseBody>
+}
+
+data class UserRegistrationData(
+    val firstname: String,
+    val surname: String,
+    val username: String,
+    val password: String,
+    val email: String,
+    val phoneNumber: String
+)
 
 class RegisterActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_window)
@@ -17,5 +48,74 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         //logic for button with text "sign up"
+        val signUpButton = findViewById<Button>(R.id.button_register_final)
+        signUpButton.setOnClickListener {
+            val registrationData = UserRegistrationData(
+                firstname = findViewById<EditText>(R.id.edit_text_firstname).getText().toString(),
+                surname = findViewById<EditText>(R.id.edit_text_surname).getText().toString(),
+                username = findViewById<EditText>(R.id.edit_text_username).getText().toString(),
+                password = findViewById<EditText>(R.id.edit_text_password).getText().toString(),
+                email = findViewById<EditText>(R.id.edit_text_email).getText().toString(),
+                phoneNumber = findViewById<EditText>(R.id.edit_text_phone_number).getText()
+                    .toString()
+            )
+
+            val requestBody = mapOf(
+                "firstname" to registrationData.firstname,
+                "surname" to registrationData.surname,
+                "username" to registrationData.username,
+                "password" to registrationData.password,
+                "email" to registrationData.email,
+                "phoneNumber" to registrationData.phoneNumber
+            )
+            signUp(requestBody)
+        }
+    }
+
+    private fun signUp(requestBody: Map<String, String>) {
+        //val firstName = findViewById<EditText>(R.id.edit_text_firstname).getText().toString()
+        //val surName = findViewById<EditText>(R.id.edit_text_surname).getText().toString()
+        //val username = findViewById<EditText>(R.id.edit_text_username).getText().toString()
+        //val password = findViewById<EditText>(R.id.edit_text_password).getText().toString()
+        //val email = findViewById<EditText>(R.id.edit_text_email).getText().toString()
+        //val phoneNumber = findViewById<EditText>(R.id.edit_text_phone_number).getText().toString()
+
+        //MAKING CONNECTION TO API
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
+        val httpClient = OkHttpClient.Builder()
+        httpClient.addInterceptor(logging)
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.1.14:8000")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(httpClient.build())
+            .build()
+
+        val apiService = retrofit.create(ApiService::class.java)
+
+
+        //SENDING POST REQUEST TO THE API SERVER
+        apiService.postRequest(requestBody).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    runOnUiThread {
+                        Toast.makeText(this@RegisterActivity, "Registration successful!", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@RegisterActivity, "Registration failed: ${response.message()}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                runOnUiThread {
+                    Toast.makeText(this@RegisterActivity, "Registration not getting response: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
     }
 }
