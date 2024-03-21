@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_register"
+    android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -20,48 +20,27 @@
             android:layout_gravity="center_horizontal"/>
 
         <EditText
-            android:id="@+id/edit_text_firstname"
+            android:id="@+id/edit_text_login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Firstname"
-            android:layout_marginTop="64dp"/>
+            android:hint="Username"
+            android:layout_marginTop="64dp"
+            android:inputType="text" />
 
         <EditText
-            android:id="@+id/edit_text_surname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Surname"/>
-
-        <EditText
-            android:id="@+id/edit_text_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username" />
-
-        <EditText
-            android:id="@+id/edit_text_password"
+            android:id="@+id/edit_text_login_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:layout_marginTop="64dp"
             android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/edit_text_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email" />
-
-        <EditText
-            android:id="@+id/edit_text_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone number" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="116dp"
             android:orientation="horizontal">
 
             <Button
@@ -73,11 +52,11 @@
                 android:textSize="32sp" />
 
             <Button
-                android:id="@+id/button_register_final"
+                android:id="@+id/button_login_final"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:text="Sign up"
+                android:text="Login"
                 android:textSize="32sp" />
         </LinearLayout>
     </LinearLayout>
