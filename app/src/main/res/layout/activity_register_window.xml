@@ -10,14 +10,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="32dp"
         android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/carclogo"
+            android:layout_gravity="center_horizontal"/>
 
         <EditText
             android:id="@+id/edit_text_firstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Firstname"
+            android:layout_marginTop="64dp"
             android:inputType="text" />
 
         <EditText
