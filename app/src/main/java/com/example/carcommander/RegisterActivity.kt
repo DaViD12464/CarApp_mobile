@@ -20,17 +20,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 interface ApiService {
-    @POST("/adduser")
+    @POST("/user/signup")
     fun postRequest(@Body body: Map<String, String>): Call<ResponseBody>
 }
 
 data class UserRegistrationData(
-    val firstname: String,
-    val surname: String,
+    val first_name: String,
+    val second_name: String,
     val username: String,
     val password: String,
     val email: String,
-    val phoneNumber: String
+    val phone: String
 )
 
 class RegisterActivity : AppCompatActivity() {
@@ -51,22 +51,22 @@ class RegisterActivity : AppCompatActivity() {
         val signUpButton = findViewById<Button>(R.id.button_register_final)
         signUpButton.setOnClickListener {
             val registrationData = UserRegistrationData(
-                firstname = findViewById<EditText>(R.id.edit_text_firstname).getText().toString(),
-                surname = findViewById<EditText>(R.id.edit_text_surname).getText().toString(),
+                first_name = findViewById<EditText>(R.id.edit_text_firstname).getText().toString(),
+                second_name = findViewById<EditText>(R.id.edit_text_surname).getText().toString(),
                 username = findViewById<EditText>(R.id.edit_text_username).getText().toString(),
                 password = findViewById<EditText>(R.id.edit_text_password).getText().toString(),
                 email = findViewById<EditText>(R.id.edit_text_email).getText().toString(),
-                phoneNumber = findViewById<EditText>(R.id.edit_text_phone_number).getText()
+                phone = findViewById<EditText>(R.id.edit_text_phone_number).getText()
                     .toString()
             )
 
             val requestBody = mapOf(
-                "firstname" to registrationData.firstname,
-                "surname" to registrationData.surname,
+                "first_name" to registrationData.first_name,
+                "second_name" to registrationData.second_name,
                 "username" to registrationData.username,
                 "password" to registrationData.password,
                 "email" to registrationData.email,
-                "phoneNumber" to registrationData.phoneNumber
+                "phone" to registrationData.phone
             )
             signUp(requestBody)
         }
