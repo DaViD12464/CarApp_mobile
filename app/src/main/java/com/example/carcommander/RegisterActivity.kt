@@ -1,6 +1,5 @@
 
 package com.example.carcommander
-import com.example.carcommander.MainActivity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -8,7 +7,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.http.POST
@@ -56,8 +54,7 @@ class RegisterActivity : AppCompatActivity() {
                 username = findViewById<EditText>(R.id.edit_text_username).getText().toString(),
                 password = findViewById<EditText>(R.id.edit_text_password).getText().toString(),
                 email = findViewById<EditText>(R.id.edit_text_email).getText().toString(),
-                phone = findViewById<EditText>(R.id.edit_text_phone_number).getText()
-                    .toString()
+                phone = findViewById<EditText>(R.id.edit_text_phone_number).getText().toString()
             )
 
             val requestBody = mapOf(
