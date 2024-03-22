@@ -17,10 +17,10 @@ import okhttp3.ResponseBody
 import retrofit2.Callback
 import retrofit2.Response
 
-interface ApiService {
-    @POST("/user/signup")
-    fun postRequest(@Body body: Map<String, String>): Call<ResponseBody>
-}
+//interface ApiService {
+//    @POST("/user/signup")
+//    fun postRequest(@Body body: Map<String, String>): Call<ResponseBody>
+//}
 
 data class UserRegistrationData(
     val first_name: String,
@@ -94,7 +94,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
         //SENDING POST REQUEST TO THE API SERVER
-        apiService.postRequest(requestBody).enqueue(object : Callback<ResponseBody> {
+        apiService.postRequestRegister(requestBody).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     runOnUiThread {

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="32dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <ImageView
             android:layout_width="250dp"
@@ -21,7 +22,7 @@
 
         <EditText
             android:id="@+id/edit_text_login_username"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="Username"
             android:layout_marginTop="64dp"
@@ -29,7 +30,7 @@
 
         <EditText
             android:id="@+id/edit_text_login_login_password"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="Password"
             android:layout_marginTop="64dp"
@@ -46,7 +47,7 @@
             <Button
                 android:id="@+id/button_back"
                 android:layout_width="160dp"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_margin="12dp"
                 android:text="Back"
                 android:textSize="32sp" />
@@ -54,7 +55,7 @@
             <Button
                 android:id="@+id/button_login_final"
                 android:layout_width="160dp"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_margin="12dp"
                 android:text="Login"
                 android:textSize="32sp" />
