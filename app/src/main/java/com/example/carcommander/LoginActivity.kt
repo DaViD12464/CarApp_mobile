@@ -18,7 +18,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 data class UserLoginData(
-    val username: String,
+    val usernameOrMail: String,
     val password: String
 )
 
@@ -35,20 +35,19 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val loginButton = findViewById<Button>(R.id.button_login_final)
-        loginButton.setOnClickListener{
+        loginButton.setOnClickListener {
 
             val loginData = UserLoginData(
-                username = findViewById<EditText>(R.id.edit_text_login_username).toString(),
-                password = findViewById<EditText>(R.id.edit_text_login_login_password).toString()
+                usernameOrMail = findViewById<EditText>(R.id.edit_text_login_username).getText().toString(),
+                password = findViewById<EditText>(R.id.edit_text_login_login_password).getText().toString()
             )
 
             val requestBody = mapOf(
-                "username" to loginData.username,
+                "usernameOrMail" to loginData.usernameOrMail,
                 "password" to loginData.password
             )
 
             login(requestBody)
-
 
 
         }
@@ -68,24 +67,27 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         val apiService = retrofit.create(ApiService::class.java)
-        apiService.postRequestLogin(requestBody).enqueue(object : Callback<ResponseBody>
-        {
+        apiService.postRequestLogin(requestBody).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-                    runOnUiThread {
-                        Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT).show()
-                        
-                    }
+                    Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT)
+                        .show()
+
                 } else {
-                    runOnUiThread {
-                        Toast.makeText(this@LoginActivity, "Login failed: ${response.message()}", Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Login failed: ${response.message()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
+
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                runOnUiThread {
-                    Toast.makeText(this@LoginActivity, "Login not getting response: ${t.message}", Toast.LENGTH_SHORT).show()
-                }
+                Toast.makeText(
+                    this@LoginActivity,
+                    "Login not getting response: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         })
