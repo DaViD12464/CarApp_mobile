@@ -23,6 +23,7 @@ data class UserLoginData(
 )
 
 class LoginActivity : AppCompatActivity() {
+    var loginSuccess : Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_window)
@@ -46,8 +47,11 @@ class LoginActivity : AppCompatActivity() {
                 "usernameOrMail" to loginData.usernameOrMail,
                 "password" to loginData.password
             )
-
             login(requestBody)
+            if (loginSuccess) {
+                val intent = Intent(this, ContentActivity::class.java)
+                startActivity(intent)
+            }
 
 
         }
@@ -72,8 +76,7 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT)
                         .show()
-                    val intent = Intent(this@LoginActivity, ContentActivity::class.java)
-                    startActivity(intent)
+                    loginSuccess = true
 
                 } else {
                     Toast.makeText(
@@ -81,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
                         "Login failed: ${response.message()}",
                         Toast.LENGTH_SHORT
                     ).show()
+                    loginSuccess = false
                 }
             }
 
