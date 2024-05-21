@@ -49,8 +49,8 @@ class LoginActivity : AppCompatActivity() {
             )
             login(requestBody)
             if (loginSuccess) {
-                val intent = Intent(this, ContentActivity::class.java)
-                startActivity(intent)
+                val intent2 = Intent(this, ContentActivity::class.java)
+                startActivity(intent2)
             }
 
 
