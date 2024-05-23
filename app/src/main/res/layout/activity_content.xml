@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_content"
     android:layout_width="match_parent"
-
-    android:layout_height="match_parent"
-    android:background="#bababa">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/topMenu"
@@ -52,30 +50,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/usericon" />
-
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mainView"
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-
-        android:background="#ffffff"
-        app:layout_constraintBottom_toTopOf="@id/bottomMenu"
-        app:layout_constraintTop_toBottomOf="@id/topMenu"
+        android:columnCount="2"
+        android:rowCount="3"
+        app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
+        app:layout_constraintTop_toBottomOf="@+id/topMenu"
         tools:ignore="MissingConstraints">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/mainCardView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="15dp"
+            android:elevation="12dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_row="1"
+            android:layout_column="0">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/baseline_directions_car_24"
+                        android:layout_gravity="center_horizontal"/>
+                </LinearLayout>
 
-            tools:ignore="MissingConstraints">
 
         </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </GridLayout>
+
+
 
     <LinearLayout
         android:id="@+id/bottomMenu"
@@ -89,6 +101,8 @@
 
 
     </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
