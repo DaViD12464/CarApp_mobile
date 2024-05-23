@@ -15,7 +15,7 @@ interface ApiService {
     fun getAllCars(): Call<List<CarData>>
 }
 data class CarData(
-    val id: Int,
+    val imageUrl: String,
     val brand: String,
     val model: String,
 )

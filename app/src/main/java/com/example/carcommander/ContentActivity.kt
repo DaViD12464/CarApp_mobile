@@ -6,6 +6,7 @@ import android.os.PersistableBundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.OkHttpClient
+import androidx.recyclerview.widget.RecyclerView
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +22,7 @@ data class Car(
 class ContentActivity : AppCompatActivity()
 {
     private lateinit var apiService: ApiService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
@@ -40,24 +42,24 @@ class ContentActivity : AppCompatActivity()
 
     }
 
-    fun fetchAllCars()
-    {
+    private fun fetchAllCars() {
         val call = apiService.getAllCars()
-        call.enqueue(object : Callback<List<CarData>>{
+        call.enqueue(object : Callback<List<CarData>> {
             override fun onResponse(call: Call<List<CarData>>, response: Response<List<CarData>>) {
-                if (response.isSuccessful)
-                {
+                if (response.isSuccessful) {
                     val carList = response.body()
                     carList?.let {
-                        Log.d("ContentActivity", "Cars $it")
+
+                        Log.d("ContentActivity", "Cars: $it")
                     }
-                }else
-                {
+                } else {
+
                     Log.e("ContentActivity", "Error: ${response.errorBody()}")
                 }
             }
+
             override fun onFailure(call: Call<List<CarData>>, t: Throwable) {
-                // Handle request failure
+
                 Log.e("ContentActivity", "Failure: ${t.message}")
             }
         })
